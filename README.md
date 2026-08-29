@@ -1,6 +1,6 @@
 # xatch3d
 
-A 3D engine written from scratch in Scratch, using [goboscript](https://github.com/aspizu/goboscript).
+A 3D engine written from scratch for Scratch, using [goboscript](https://github.com/aspizu/goboscript).
 
 ## Features
 
