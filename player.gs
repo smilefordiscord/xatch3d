@@ -31,7 +31,6 @@ var jumpHeight = 0;
 var isJumping = false;
 var jumpStart = 0;
 
-#pub var Vector3 p_velocity;
 var sm_blocked = 0;
 var wasOnGround = 0;
 var onGround = 0;
