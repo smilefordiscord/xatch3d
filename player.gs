@@ -488,7 +488,7 @@ proc stay_on_ground {
     }
 }
 
-### raycasting
+### raycasting - unused
 var Vector3 ray_o;
 var Vector3 ray_d;
 var ray_hit = 0; var ray_t = 0; var ray_tri = 0;
@@ -752,6 +752,13 @@ proc tick {
         if key_pressed("d") {
             moveDir = VEC3_SUB(moveDir, rightVec);
         }
+        if key_pressed("e") {
+            moveDir.y += 1;
+        }
+        if key_pressed("q") {
+            moveDir.y -= 1;
+        }
+
         if VEC3_MAG2(moveDir) > 0 {
             VEC3_NORMALIZE(moveDir);
         }
@@ -783,13 +790,6 @@ proc tick {
         if abs(moveDir.x) > 0 or abs(moveDir.y) > 0 or abs(moveDir.z) > 0 {
             local magnitude = VEC3_MAG(moveDir);
             moveDir = VEC3_DIV(moveDir, magnitude);
-        }
-
-        if key_pressed("e") {
-            moveDir.y += 1;
-        }
-        if key_pressed("q") {
-            moveDir.y -= 1;
         }
 
         if onGround {
