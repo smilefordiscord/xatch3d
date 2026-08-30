@@ -377,17 +377,27 @@ proc get_screen_size {
 proc render {
     smoothCamPos = VEC3_LERP(prevCamPos, camPos, frac);
 
-    local fovScale = (FOV / 90);
+    #calc screen size
+    resizeDelay--;
+    if resizeDelay < 0 {
+        resizeDelay = 16;
+        get_screen_size;
+    }
+    
+    FOCAL = (21600 / FOV) * (ScreenSize.y / 360);
+
+    local fovScale = FOV / 90;
+    local resScale = ScreenSize.y / 360;
 
     if mouseLocked {
-        cam_yaw -= RAD(mouse_x()) * 0.4 * fovScale;
-        cam_pitch += RAD(mouse_y()) * 0.4 * fovScale;
+        cam_yaw -= RAD(mouse_x()) * 0.033 * fovScale * resScale;
+        cam_pitch += RAD(mouse_y()) * 0.033 * fovScale * resScale;
     } else {
         local Vector2 mousePos = Vector2 {x: mouse_x(), y: mouse_y()};
         if mouse_down() {
             local Vector2 mouseDelta = VEC2_SUB(prevMousePos, mousePos);
-            cam_yaw += RAD(mouseDelta.x) * 0.4 * fovScale;
-            cam_pitch -= RAD(mouseDelta.y) * 0.4 * fovScale;
+            cam_yaw += RAD(mouseDelta.x) * 0.4 * fovScale * resScale;
+            cam_pitch -= RAD(mouseDelta.y) * 0.4 * fovScale * resScale;
         }
     }
     prevMousePos = mousePos;
@@ -401,15 +411,6 @@ proc render {
     if cam_pitch < -RAD(89.9) { cam_pitch = -RAD(89.9); }
 
     erase_all;
-
-    #calc screen size
-    resizeDelay--;
-    if resizeDelay < 0 {
-        resizeDelay = 16;
-        get_screen_size;
-    }
-    
-    FOCAL = (21600 / FOV) * (ScreenSize.y / 360);
 
     build_view_matrix;
     build_frustum;
